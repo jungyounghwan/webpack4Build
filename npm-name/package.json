@@ -1,0 +1,15 @@
+{
+  "name": "@saramin/ui-motion",
+  "version": "1.1.0",
+  "description": "",
+  "main": "./motion.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jung",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "@saramin/ui-helper": "^1.0.0"
+  }
+}

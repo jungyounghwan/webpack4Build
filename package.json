@@ -1,0 +1,29 @@
+{
+  "name": "npm_management",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "devServer": "webpack-dev-server --config webpack.module.config.js",
+    "dev": "webpack --config webpack.module.config.js --watch",
+    "prodServer": "webpack-dev-server --config webpack.config.js",
+    "prod": "webpack --config webpack.config.js --watch"
+  },
+  "author": "jung",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.1",
+    "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^1.0.0",
+    "css-loader": "^0.28.11",
+    "node-sass": "^4.8.3",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.5.1"
+  },
+  "dependencies": {}
+}
