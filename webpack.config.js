@@ -1,49 +1,70 @@
+const webpack = require('webpack');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-module.exports = {
-    mode: 'production',
-    entry: {
-        app: ['@babel/polyfill', './app.js']
-    },
-    output: {
-        filename: '[name].js',
-        path: path.resolve(__dirname, './dist'),
-        libraryTarget: 'var',
-        library: 'UI',
-    },
-    devServer: {
-        contentBase: path.join(__dirname, '/'),
-        compress: false,
-        port: 8888
-    },
-    plugins: [
-        new CleanWebpackPlugin(['./dist'])
-    ],
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                include: path.join(__dirname),
-                use: {
-                    loader : 'babel-loader',
-                    options : {
-                        presets : ['@babel/preset-env']
+module.exports = (env, options) => {
+    const config = {
+        entry: {
+            app: ['@babel/polyfill', './npm-name/app.js']
+        },
+        output: {
+            filename: '[name].js',
+            path: path.resolve(__dirname, './npm-name/dist'),
+            libraryTarget: 'var',
+            library: 'UI',
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    include: path.join(__dirname, './npm-name/app.js'),
+                    use: {
+                        loader : 'babel-loader',
+                        options : {
+                            presets : ['@babel/preset-env']
+                        }
                     }
+                },
+                {
+                    test: /\.(s*)css$/, // match any .scss or .css file,
+                    use: [
+                        "style-loader",
+                        "css-loader",
+                        "sass-loader"
+                    ]
                 }
-            },
-            {
-                test: /\.(s*)css$/,
-                use: [
-                    "style-loader",
-                    "css-loader",
-                    "sass-loader"
-                ]
-            }
-        ]
-    },
-    optimization: {
-        minimize: true
-    },
-    devtool: 'source-map'
+            ]
+        },
+        plugins: [
+            new webpack.HotModuleReplacementPlugin(),
+            new UglifyJsPlugin()
+        ],
+        devtool: 'source-map'
+    }
+
+    if(options.mode === 'development') {
+
+        config.devServer = {
+            hot: true,
+            contentBase: path.join(__dirname, '/npm-name/'),
+            port: 7777
+        };
+
+    } else {
+        // Production ¼³Á¤
+        config.plugins = [
+            new CleanWebpackPlugin(['dist'])
+        ];
+
+        config.optimization = {
+            minimizer: [
+                new UglifyJsPlugin({
+                    exclude: /(node_modules)|(dist)/,
+                }),
+            ],
+        };
+    }
+
+    return config;
 };

@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "description": "",
   "scripts": {
-    "devServer": "webpack-dev-server --config webpack.module.config.js",
-    "dev": "webpack --config webpack.module.config.js --watch",
-    "prodServer": "webpack-dev-server --config webpack.config.js",
-    "prod": "webpack --config webpack.config.js --watch"
+    "build-dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "dev": "webpack-dev-server --mode development"
   },
   "author": "jung",
   "license": "ISC",
@@ -21,6 +20,7 @@
     "node-sass": "^4.8.3",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^2.1.3",
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.5.1"
