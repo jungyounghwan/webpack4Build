@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (env, options) => {
     const config = {
@@ -10,7 +10,7 @@ module.exports = (env, options) => {
         },
         output: {
             filename: '[name].js',
-            path: path.resolve(__dirname, './npm-name/dist'),
+            path: path.resolve(__dirname, './npm-name/dist/'),
             libraryTarget: 'var',
             library: 'UI',
         },
@@ -38,7 +38,7 @@ module.exports = (env, options) => {
         },
         plugins: [
             new webpack.HotModuleReplacementPlugin(),
-            new UglifyJsPlugin()
+            new TerserPlugin()
         ],
         devtool: 'source-map'
     }
@@ -59,8 +59,9 @@ module.exports = (env, options) => {
 
         config.optimization = {
             minimizer: [
-                new UglifyJsPlugin({
-                    exclude: /(node_modules)|(dist)/,
+                new TerserPlugin({
+                    cache: true,
+                    sourceMap: true,
                 }),
             ],
         };
